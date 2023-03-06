@@ -22,7 +22,11 @@ document.addEventListener("DOMContentLoaded",()=>{
         })
     })
 
+    //make the overall styling of the page
+
     function StartQuiz() {
+
+        AnsweredQuestions = 0
 
         questionDiv = document.createElement("div")
         questionDiv.id = "questionDiv";
@@ -36,6 +40,8 @@ document.addEventListener("DOMContentLoaded",()=>{
 
     }
 
+    //driver code to get next questions
+
     function DriverCode(data, i) {
         prompts = data;
         promptNo = i;
@@ -48,6 +54,8 @@ document.addEventListener("DOMContentLoaded",()=>{
         console.log(prompts[1].question);
         DisplayQuestion(prompts[promptNo], promptNo);
     }
+
+    //render the questions and its options
 
     function DisplayQuestion(query, i) {
         
@@ -98,27 +106,40 @@ document.addEventListener("DOMContentLoaded",()=>{
         }
 
 
+        submission = document.createElement("input");
+        submission.type = "button";
+        submission.id = "nextQuestionButton";
+        submission.value = "Next Question";
+        carddiv.appendChild(submission);
+
+        document.getElementById("nextQuestionButton").addEventListener("click", (e)=> {
+            NextQuestion(i);
+        })
+
+        //after this is the checking 
+
         el = document.getElementById("answer" + 0);
         if(el){
             el.addEventListener("click", (e)=> {
                 e.preventDefault();
                 if (query.correctAnswer == el.value) {
                     el.style.backgroundColor = "lawngreen";
-                    NextQuestion(i);
                 } 
                 else {
                     el.style.backgroundColor = "palevioletred";
-                    // for(var k = 0; k < 4; k++) {
-                    //     ans = document.getElementById("answer" + k);
-                    //     if (ans) {
-                    //         if (query.correctAnswer == ans.value) {
-                    //             ans.style.backgroundColor = "lawngreen";
-                    //             setTimeout(5000);
-                    //             NextQuestion(i); //make function
-                    //             break;
-                    //         } 
-                    //     }
-                    // }
+                    for(var k = 0; k < 4; k++) {
+                        ans = document.getElementById("answer" + k);
+                        if (ans) {
+                            if (query.correctAnswer == ans.value) {
+                                bool = true;
+                                AnsweredQuestions++;
+                                break;
+                            } 
+                        }
+                    }
+                    if (bool) {
+                        ans.style.backgroundColor = "lawngreen";
+                    }
                 }
             })
         }
@@ -132,6 +153,19 @@ document.addEventListener("DOMContentLoaded",()=>{
                 } 
                 else {
                     el2.style.backgroundColor = "palevioletred";
+                    for(var k = 0; k < 4; k++) {
+                        ans = document.getElementById("answer" + k);
+                        if (ans) {
+                            if (query.correctAnswer == ans.value) {
+                                bool = true;
+                                AnsweredQuestions++;
+                                break;
+                            } 
+                        }
+                    }
+                    if (bool) {
+                        ans.style.backgroundColor = "lawngreen";
+                    }
                 }
             })
         }
@@ -145,6 +179,19 @@ document.addEventListener("DOMContentLoaded",()=>{
                 } 
                 else {
                     el3.style.backgroundColor = "palevioletred";
+                    for(var k = 0; k < 4; k++) {
+                        ans = document.getElementById("answer" + k);
+                        if (ans) {
+                            if (query.correctAnswer == ans.value) {
+                                bool = true;
+                                AnsweredQuestions++;
+                                break;
+                            } 
+                        }
+                    }
+                    if (bool) {
+                        ans.style.backgroundColor = "lawngreen";
+                    }
                 }
             })
         }
@@ -158,6 +205,19 @@ document.addEventListener("DOMContentLoaded",()=>{
                 } 
                 else {
                     el4.style.backgroundColor = "palevioletred";
+                    for(var k = 0; k < 4; k++) {
+                        ans = document.getElementById("answer" + k);
+                        if (ans) {
+                            if (query.correctAnswer == ans.value) {
+                                bool = true;
+                                AnsweredQuestions++;
+                                break;
+                            } 
+                        }
+                    }
+                    if (bool) {
+                        ans.style.backgroundColor = "lawngreen";
+                    }
                 }
             })
         }
@@ -167,7 +227,36 @@ document.addEventListener("DOMContentLoaded",()=>{
 
         document.getElementById("card").remove();
 
-        DriverDriverCode(i+1);
+        if (i >= 19) {
+            console.log();
+            console.log();
+            console.log();
+            console.log();
+            console.log();
+            console.log(AnsweredQuestions);
+            GenerateResultPage();
+        }
+        else {
+            DriverDriverCode(i+1);
+        }
+
     }
 
+    function GenerateResultPage() {
+
+        console.log();
+        console.log();
+        console.log();
+        console.log();
+        console.log();
+        console.log(AnsweredQuestions);
+
+        answerHeader = document.createElement("h1");
+        answerHeader.innerHTML = "You have gotten " + (20-AnsweredQuestions) + " correct answers out of 20.";
+        scoreHeader = document.createElement("h2");
+        scoreHeader.innerHTML = "Your percentage is " + ((20-AnsweredQuestions)/20)*100;
+
+        questionDiv.appendChild(answerHeader);
+        questionDiv.appendChild(scoreHeader);
+    }
 });
