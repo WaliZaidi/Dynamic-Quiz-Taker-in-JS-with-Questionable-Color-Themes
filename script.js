@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded",()=>{
             e.preventDefault();
             document.getElementById("startButton").remove();
             StartQuiz();
+            prompts = data;
             DriverCode(data, 0);
         })
     })
@@ -103,21 +104,21 @@ document.addEventListener("DOMContentLoaded",()=>{
                 e.preventDefault();
                 if (query.correctAnswer == el.value) {
                     el.style.backgroundColor = "lawngreen";
-                    NextQuestion(query, i);
+                    NextQuestion(i);
                 } 
                 else {
                     el.style.backgroundColor = "palevioletred";
-                    for(var k = 0; k < 4; k++) {
-                        ans = document.getElementById("answer" + k);
-                        if (ans) {
-                            if (query.correctAnswer == ans.value) {
-                                ans.style.backgroundColor = "lawngreen";
-                                setTimeout(5000);
-                                NextQuestion(i); //make function
-                                break;
-                            } 
-                        }
-                    }
+                    // for(var k = 0; k < 4; k++) {
+                    //     ans = document.getElementById("answer" + k);
+                    //     if (ans) {
+                    //         if (query.correctAnswer == ans.value) {
+                    //             ans.style.backgroundColor = "lawngreen";
+                    //             setTimeout(5000);
+                    //             NextQuestion(i); //make function
+                    //             break;
+                    //         } 
+                    //     }
+                    // }
                 }
             })
         }
